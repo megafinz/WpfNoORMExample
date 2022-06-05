@@ -22,6 +22,8 @@ public partial class App
 
         void InitDb()
         {
+            // You may want to run this as a separate process/app since DB management shouldn't be really a concern of
+            // the GUI app
             Migrator.RunMigrations(serviceProvider);
         }
 

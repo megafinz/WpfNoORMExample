@@ -15,6 +15,7 @@ public interface IOrderRepo
     Task<OrderDetails> GetOrderById(long orderId);
 }
 
+// Not sure if SQL queries here are specific for Postgres, maybe you'll need a different implementation for a different DB
 public sealed class OrderRepo :  IOrderRepo
 {
     private readonly IDbConnectionProvider _dbConnectionProvider;
@@ -68,6 +69,7 @@ public sealed class OrderRepo :  IOrderRepo
     }
 }
 
+// You may want to use DynamicProxy from Castle.Core instead of plain decorators to reduce the boiler-plate
 public sealed class LoggingOrderRepo : IOrderRepo
 {
     private readonly IOrderRepo _impl;
