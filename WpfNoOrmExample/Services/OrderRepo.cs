@@ -1,4 +1,6 @@
 using Dapper;
+using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using WpfNoOrmExample.Db;
@@ -63,5 +65,37 @@ public sealed class OrderRepo :  IOrderRepo
                         x.orderitempriceamount,
                         x.orderitempricecurrency)).ToArray()
         );
+    }
+}
+
+public sealed class LoggingOrderRepo : IOrderRepo
+{
+    private readonly IOrderRepo _impl;
+    private readonly ILogger<LoggingOrderRepo> _logger;
+
+    public LoggingOrderRepo(IOrderRepo impl, ILogger<LoggingOrderRepo> logger)
+    {
+        _impl = impl;
+        _logger = logger;
+    }
+
+    public async Task<Order[]> GetOrders()
+    {
+        var sw = Stopwatch.StartNew();
+        _logger.LogInformation("Started getting Orders from DB...");
+        var result = await _impl.GetOrders();
+        sw.Stop();
+        _logger.LogInformation("Finished getting Orders from DB in {ElapsedMs}ms", sw.ElapsedMilliseconds);
+        return result;
+    }
+
+    public async Task<OrderDetails> GetOrderById(long orderId)
+    {
+        var sw = Stopwatch.StartNew();
+        _logger.LogInformation("Getting Order with id '{OrderId}' from DB...", orderId);
+        var result = await _impl.GetOrderById(orderId);
+        sw.Stop();
+        _logger.LogInformation("Finished getting Order with id '{OrderId}' from DB in {ElapsedMs}ms", orderId, sw.ElapsedMilliseconds);
+        return result;
     }
 }

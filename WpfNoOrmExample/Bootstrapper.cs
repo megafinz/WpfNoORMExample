@@ -15,7 +15,11 @@ public sealed class Bootstrapper
             .AddLogging(logger => logger.AddConsole())
             .ConfigureMigrations()
             .AddTransient<IDbConnectionProvider, NpgsqlConnectionProvider>()
-            .AddTransient<IOrderRepo, OrderRepo>()
+            .AddTransient<OrderRepo>()
+            .AddTransient<IOrderRepo>(serviceProvider => 
+                new LoggingOrderRepo(
+                    serviceProvider.GetRequiredService<OrderRepo>(),
+                    serviceProvider.GetRequiredService<ILogger<LoggingOrderRepo>>()))
             .AddTransient<OrderListViewModel>()
             .AddTransient<OrderDetailsViewModelFactory>(serviceProvider => id => OrderDetailsFactory(serviceProvider, id))
             .AddTransient<MainWindowViewModel>();
