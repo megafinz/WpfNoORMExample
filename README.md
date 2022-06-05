@@ -1,6 +1,8 @@
 # What's This?
 An example to demonstrate how to query database without ORM in the context of WPF app.
 
+![Demo GIF](Demo/Demo.gif)
+
 # How Do I Run This?
 ## 1. Database Setup (Choose One)
 ### 1.1. Docker
