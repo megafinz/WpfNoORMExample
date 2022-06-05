@@ -17,7 +17,7 @@ public sealed class Bootstrapper
             .AddTransient<IDbConnectionProvider, NpgsqlConnectionProvider>()
             .AddTransient<IOrderRepo, OrderRepo>()
             .AddTransient<OrderListViewModel>()
-            .AddTransient<OrderDetailsViewModelFactory>(serviceProvider => (id) => OrderDetailsFactory(serviceProvider, id))
+            .AddTransient<OrderDetailsViewModelFactory>(serviceProvider => id => OrderDetailsFactory(serviceProvider, id))
             .AddTransient<MainWindowViewModel>();
         
         return services.BuildServiceProvider();

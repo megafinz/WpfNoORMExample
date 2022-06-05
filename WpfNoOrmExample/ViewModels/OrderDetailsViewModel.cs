@@ -10,15 +10,24 @@ namespace WpfNoOrmExample.ViewModels;
 
 public sealed class OrderItemListItemViewModel : ViewModelBase
 {
-    public OrderItemListItemViewModel(long id, string title)
+    public OrderItemListItemViewModel(long id, string title, int quantity, decimal priceAmount, string priceCurrency)
     {
         Id = id;
         Title = title;
+        Quantity = quantity;
+        PriceAmount = priceAmount;
+        PriceCurrency = priceCurrency;
     }
-
+    
     public long Id { get; }
     
     public string Title { get; }
+    
+    public int Quantity { get; }
+    
+    public decimal PriceAmount { get; }
+    
+    public string PriceCurrency { get; }
 }
 
 public sealed class OrderDetailsViewModel : ViewModelBase
@@ -47,7 +56,15 @@ public sealed class OrderDetailsViewModel : ViewModelBase
 
         Title = orderDetails.Title;
         
-        var orderItemVms = orderDetails.Items.Select(x => new OrderItemListItemViewModel(x.Id, x.Title));
+        var orderItemVms = orderDetails.Items.Select(x => 
+            new OrderItemListItemViewModel(
+                x.Id, 
+                x.Title,
+                x.Quantity,
+                x.PriceAmount,
+                x.PriceCurrency
+            )
+        );
         
         foreach (var orderItemVm in orderItemVms)
         {

@@ -31,11 +31,11 @@
             <TextBlock FontSize="14" FontWeight="Bold">Order Items</TextBlock>
             <DataGrid x:Name="OrderItemsDataGrid" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneTime}" />
-                    <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneTime}" />
-                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity, Mode=OneTime}" />
-                    <DataGridTextColumn Header="PriceAmount" Binding="{Binding PriceAmount, Mode=OneTime}" />
-                    <DataGridTextColumn Header="PriceCurrency" Binding="{Binding PriceCurrency, Mode=OneTime}" />
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id, Mode=OneTime}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title, Mode=OneTime}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity, Mode=OneTime}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="PriceAmount" Binding="{Binding PriceAmount, Mode=OneTime}" IsReadOnly="True" />
+                    <DataGridTextColumn Header="PriceCurrency" Binding="{Binding PriceCurrency, Mode=OneTime}" IsReadOnly="True" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
